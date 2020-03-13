@@ -3,6 +3,7 @@ package com.hzst.oaCenterService.controller;
 
 import com.hzst.oaCenterService.entity.System;
 import com.hzst.oaCenterService.service.impl.SystemServiceImpl;
+import com.hzst.oaCenterService.util.HttpResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,17 @@ public class SystemController {
 
     @GetMapping("/list")
     public Object list (){
-        return systemService.list();
+        return HttpResult.success().setData(systemService.list());
     }
 
     @PostMapping("add")
-    public Object add(@RequestParam System system){
-        return systemService.save(system);
+    public HttpResult add(@RequestParam System system){
+        if(systemService.save(system)){
+            return HttpResult.success();
+        }else{
+            return HttpResult.fail();
+        }
+
     }
 
 }
