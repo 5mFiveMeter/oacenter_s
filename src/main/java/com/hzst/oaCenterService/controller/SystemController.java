@@ -1,13 +1,13 @@
 package com.hzst.oaCenterService.controller;
 
 
+import com.hzst.oaCenterService.entity.System;
 import com.hzst.oaCenterService.service.impl.SystemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/system")
+@Transactional
 public class SystemController {
 
     @Autowired
@@ -27,6 +28,11 @@ public class SystemController {
     @GetMapping("/list")
     public Object list (){
         return systemService.list();
+    }
+
+    @PostMapping("add")
+    public Object add(@RequestParam System system){
+        return systemService.save(system);
     }
 
 }
