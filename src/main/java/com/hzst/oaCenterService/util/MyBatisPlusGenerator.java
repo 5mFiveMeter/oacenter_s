@@ -14,8 +14,7 @@ public class MyBatisPlusGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = "C:/Users/hzst73/IdeaProjects/oacenter_s";
-        gc.setOutputDir(projectPath + "/src/main/java");
+        gc.setOutputDir("src/main/java");
         gc.setAuthor("wm");
         gc.setOpen(false);
         mpg.setGlobalConfig(gc);
