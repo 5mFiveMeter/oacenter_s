@@ -1,18 +1,17 @@
 package com.hzst.oaCenterService.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.hzst.oaCenterService.entity.Sys;
 import com.hzst.oaCenterService.service.impl.SysServiceImpl;
 import com.hzst.oaCenterService.util.HttpResult;
+import com.hzst.oaCenterService.util.MyTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -31,11 +30,22 @@ public class SysController {
 
     @GetMapping("/list")
     public HttpResult list(){
-        return HttpResult.success().setData(sysService.list());
+        return HttpResult.success().setData(sysService.listMaps());
     }
     @PostMapping("/add")
-    public HttpResult add( Sys sys){
-        return HttpResult.success().setData(sysService.save(sys));
+    public HttpResult add(@RequestBody Sys sys){
+        if(MyTool.paramVerify(sys,"name,enName")==1){
+            sys.setCreateTime(MyTool.getCurrentTime());
+            sys.setSystemId(UUID.randomUUID().toString());
+            sys.setSerializeNum(UUID.randomUUID().toString());
+            if(sysService.save(sys)){
+                return HttpResult.success();
+            }else {
+                return HttpResult.fail().setMsg("添加失败");
+            }
+        }else {
+            return HttpResult.fail().setMsg("参数不正确");
+        }
     }
     @PostMapping("/find")
     public HttpResult findOne(String system_id,String system_name){
@@ -52,7 +62,7 @@ public class SysController {
         return HttpResult.fail();
     }
     @PostMapping("/updata")
-    public HttpResult updata(Sys sys){
+    public HttpResult updata(@RequestBody Sys sys){
         UpdateWrapper<Sys> sysUpdateWrapper = new UpdateWrapper<>();
         sysUpdateWrapper.eq("system_id",sys.getSystemId());
         return HttpResult.success().setData(sysService.update(sys,sysUpdateWrapper));

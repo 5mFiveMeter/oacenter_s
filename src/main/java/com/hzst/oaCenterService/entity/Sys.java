@@ -11,14 +11,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author wm
- * @since 2020-03-14
+ * @since 2020-03-16
  */
 @TableName("t_sys")
 public class Sys implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     private String systemId;
@@ -29,6 +29,8 @@ public class Sys implements Serializable {
 
     private String path;
 
+    private String systemIp;
+
     private String serializeNum;
 
     private String createTime;
@@ -36,6 +38,8 @@ public class Sys implements Serializable {
     private String orderNum;
 
     private Integer isDelete;
+
+    private String description;
 
 
     public Integer getId() {
@@ -78,6 +82,14 @@ public class Sys implements Serializable {
         this.path = path;
     }
 
+    public String getSystemIp() {
+        return systemIp;
+    }
+
+    public void setSystemIp(String systemIp) {
+        this.systemIp = systemIp;
+    }
+
     public String getSerializeNum() {
         return serializeNum;
     }
@@ -110,6 +122,14 @@ public class Sys implements Serializable {
         this.isDelete = isDelete;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Sys{" +
@@ -118,10 +138,12 @@ public class Sys implements Serializable {
         ", name=" + name +
         ", enName=" + enName +
         ", path=" + path +
+        ", systemIp=" + systemIp +
         ", serializeNum=" + serializeNum +
         ", createTime=" + createTime +
         ", orderNum=" + orderNum +
         ", isDelete=" + isDelete +
+        ", description=" + description +
         "}";
     }
 }
