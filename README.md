@@ -4,4 +4,4 @@
 
 #数据库在远程
 
-#下载后idea识别为springboot项目和可直接运行
+#下载后，idea识别为springboot项目可直接运行
