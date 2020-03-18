@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IFunctionService extends IService<Function> {
 
+    public int addFunction(Function function,String systemId);
+
 }

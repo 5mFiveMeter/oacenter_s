@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -33,12 +34,19 @@ public class SysServiceImpl extends ServiceImpl<SysMapper, Sys> implements ISysS
     @Autowired
     SysMapper sysMapper;
 
+    //查询所有系统列表
+    public List<Sys> listAllSystem(){
+        QueryWrapper<Sys> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("order_num","create_time");
+        return sysMapper.selectList(queryWrapper);
+    }
 
     //分页查询系统列表
     @Override
     public HashMap<String,Object> SystemListPage(Long index,Long size){
         QueryWrapper<Sys> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("order_num","create_time");
+        queryWrapper.eq("is_delete","2");
         Page<Sys> page = new Page<>(index,size);
         IPage<Sys> iPage = sysMapper.selectPage(page,queryWrapper);
         //返回结果
@@ -68,6 +76,7 @@ public class SysServiceImpl extends ServiceImpl<SysMapper, Sys> implements ISysS
         QueryWrapper<Sys> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("order_num","create_time");
         queryWrapper.like("name",map.get("keywords"));
+        queryWrapper.eq("is_delete","2");
         Integer nowPage = (Integer) map.get("index");
         Integer size = (Integer) map.get("size");
         Page<Sys> page = new Page<>( Long.valueOf(nowPage),Long.valueOf(size));

@@ -27,6 +27,12 @@ public class SysController {
     @Autowired
     SysServiceImpl sysService;
 
+    //所有系统
+    @GetMapping("/listAll")
+    public HttpResult listAll(){
+        return HttpResult.success().setData(sysService.listAllSystem());
+    }
+
     @GetMapping("/list")
     public HttpResult list(@RequestParam Long index,@RequestParam Long size){
         return HttpResult.success().setData(sysService.SystemListPage(index,size));

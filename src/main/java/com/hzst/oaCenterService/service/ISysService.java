@@ -6,6 +6,7 @@ import com.hzst.oaCenterService.util.HttpResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>
@@ -17,6 +18,8 @@ import java.util.HashMap;
  */
 public interface ISysService extends IService<Sys> {
 
+    //查询所有系统
+    public List<Sys> listAllSystem();
     //系统分页查询
     public HashMap<String,Object> SystemListPage(Long index,Long size);
     //新增
